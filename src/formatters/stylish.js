@@ -38,4 +38,4 @@ const iter = (nodes, depth) => nodes.map((node) => {
 
 const formatStylish = (tree) => `{\n${iter(tree, 1).join('\n')}\n}`;
 
-export default formatStylish; 
+export default formatStylish;
