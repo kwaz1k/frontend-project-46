@@ -1,47 +1,19 @@
-import path from 'node:path';
-import { readFileSync } from 'node:fs';
-import _ from 'lodash';
+import fs from 'fs';
+import path from 'path';
+import parse from './parsers.js';
+import buildTree from './buildTree.js';
+import formatData from './formatters/index.js';
 
-const resolvePath = (filePath) => (filePath.includes('__fixtures__')
-  ? path.resolve(process.cwd(), filePath)
-  : path.resolve(process.cwd(), `__fixtures__/${filePath}`));
+const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
+const getFormat = (filepath) => path.extname(filepath).slice(1);
+const getData = (filepath) => parse(fs.readFileSync(filepath, 'utf-8'), getFormat(filepath));
 
-const readFileAndParseJSON = (filePath) => {
-  const fileContent = readFileSync(filePath, 'utf-8');
-  return JSON.parse(fileContent);
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
+    const data1 = getData(buildAbsolutePath(filepath1));
+    const data2 = getData(buildAbsolutePath(filepath2));
+    const tree = buildTree(data1, data2);
+
+    return formatData(tree, formatName);
 };
 
-const buildDiff = (data1, data2) => {
-  const keys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
-
-  const result = ['{'];
-  for (const key of keys) {
-    const value1 = data1[key];
-    const value2 = data2[key];
-
-    if (!Object.hasOwn(data1, key)) {
-      result.push(` + ${key}: ${value2}`);
-    } else if (!Object.hasOwn(data2, key)) {
-      result.push(` - ${key}: ${value1}`);
-    } else if (value1 === value2) {
-      result.push(`   ${key}: ${value1}`);
-    } else {
-      result.push(` - ${key}: ${value1}`);
-      result.push(` + ${key}: ${value2}`);
-    }
-  }
-  result.push('}');
-  return result.join('\n');
-};
-
-const gendiff = (filePath1, filePath2) => {
-  const path1 = resolvePath(filePath1);
-  const path2 = resolvePath(filePath2);
-
-  const data1 = readFileAndParseJSON(path1);
-  const data2 = readFileAndParseJSON(path2);
-
-  return buildDiff(data1, data2);
-};
-
-export default gendiff;
+export default genDiff;
