@@ -1,0 +1,23 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/kwaz1k/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kwaz1k/frontend-project-46/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwaz1k/frontend-project-46.git"
+  },
+  "author": "kwaz1k",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kwaz1k/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/kwaz1k/frontend-project-46#readme",
+  "type": "module",
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}
