@@ -8,10 +8,5 @@ parserOptions:
   sourceType: module
 rules: {}
 globals:
-  no-console: 0
   process: 'readonly'
-  import/extensions:
-    - error
-    - ignorePackages
-    - js: always
-  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  
