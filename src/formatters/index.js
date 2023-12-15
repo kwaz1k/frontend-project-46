@@ -9,8 +9,8 @@ const formatData = (data, format) => {
       return formatPlain(data);
     case 'json':
       return JSON.stringify(data, null, 2);
-  default:
-  throw new Error(`Unknown format: ${format}`);
+    default:
+      throw new Error(`Unknown format: ${format}`);
   }
 };
 export default formatData;

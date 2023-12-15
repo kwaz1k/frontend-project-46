@@ -9,11 +9,11 @@ const getFormat = (filepath) => path.extname(filepath).slice(1);
 const getData = (filepath) => parse(fs.readFileSync(filepath, 'utf-8'), getFormat(filepath));
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
-    const data1 = getData(buildAbsolutePath(filepath1));
-    const data2 = getData(buildAbsolutePath(filepath2));
-    const tree = buildTree(data1, data2);
+const data1 = getData(buildAbsolutePath(filepath1));
+const data2 = getData(buildAbsolutePath(filepath2));
+const tree = buildTree(data1, data2);
 
-    return formatData(tree, formatName);
+return formatData(tree, formatName);
 };
 
 export default genDiff;
